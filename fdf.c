@@ -6,14 +6,12 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:31:39 by dteruya           #+#    #+#             */
-/*   Updated: 2025/01/08 18:47:28 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/01/09 11:56:37 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <math.h>
-#include "gnl/get_next_line.h"
-#include "printf/ft_printf.h"
 #include "libft/libft.h"
 #include "fdf.h"
 /*
@@ -98,7 +96,7 @@ void	ft_free(int **matriz, int row)
 		i++;
 	}
 	free (matriz);
-	return (NULL);
+	return;
 }
 
 int	count_col(char *line)
@@ -120,7 +118,7 @@ int	count_col(char *line)
 	return (x);
 }
 
-int	**create_matriz(const char *file, int row, int col)
+int	**create_matriz(/*const char *file,*/ int row, int col)
 {
 	int	**matriz;
 	int	i;
@@ -131,7 +129,7 @@ int	**create_matriz(const char *file, int row, int col)
 		return (NULL);
 	while (i < row)
 	{
-		matriz[i] = (int **)malloc(col * sizeof(int));
+		matriz[i] = (int *)malloc(col * sizeof(int));
 		if (matriz[i] == NULL)
 		{
 			ft_free(matriz, row);
