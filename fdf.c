@@ -6,13 +6,10 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:31:39 by dteruya           #+#    #+#             */
-/*   Updated: 2025/01/09 11:56:37 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/01/09 19:41:58 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <math.h>
-#include "libft/libft.h"
 #include "fdf.h"
 /*
 void	draw_line(void *mlx, void *win)
@@ -49,8 +46,8 @@ void	draw_line(void *mlx, void *win)
 		i++;
 	}
 	mlx_loop(mlx);
-}
-
+}*/
+/*
 void	ft_draw_line(void *mlx, void *win)
 {
 	
@@ -85,6 +82,27 @@ while (linha = próxima_linha_do_arquivo()) {
 }
 */
 
+int	**ft_alocate_matriz(int **matriz, char *line, int row, int i, int j)
+{
+	while (i < row)
+	{
+		if (ft_isdigit(*line))
+		{
+			while (ft_isdigit(*line))
+			{
+				matriz[i][j] = ft_atoi(line);
+				line++;
+			}
+			j++;
+		}
+		else if (!(ft_isdigit(*line)))
+			line++;
+		else
+			i++;
+	}
+	return (matriz);
+}
+
 void	ft_free(int **matriz, int row)
 {
 	int	i;
@@ -99,9 +117,54 @@ void	ft_free(int **matriz, int row)
 	return;
 }
 
+int	**read_file(char *file, int **matriz, int *row, int *col)
+{
+	int		fd;
+	char	*line;
+	int		i;
+	int 	j;
+
+	i = 0;
+	j = 0;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (ft_printf("Erro opening file", 1));
+	line = get_next_line(fd);
+		while (line != NULL)
+	{
+		matriz = ft_alocate_matriz(matriz, line, row, i, j);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close (fd);
+	return (matriz);
+}
+
+int	**ft_create_matriz(const char *file, int row, int col, int **matriz)
+{
+	int	index;
+	
+	index = 0;
+	matriz = (int **)malloc(row * sizeof(int *));
+	if (matriz == NULL)
+		return (NULL);
+	while (index < row)
+	{
+		matriz[index] = (int *)malloc(col * sizeof(int));
+		if (matriz[index] == NULL)
+		{
+			ft_free(matriz, row);
+			return (NULL);
+		}
+		index++;
+	}
+	matriz = read_file(file, matriz, row);
+	return (matriz);
+}
+
 int	count_col(char *line)
 {
-	int		x;
+	int	x;
 
 	x = 0;
 	while (*line)
@@ -118,50 +181,26 @@ int	count_col(char *line)
 	return (x);
 }
 
-int	**create_matriz(/*const char *file,*/ int row, int col)
-{
-	int	**matriz;
-	int	i;
-
-	i = 0;
-	matriz = (int **)malloc(row * sizeof(int *));
-	if (matriz == NULL)
-		return (NULL);
-	while (i < row)
-	{
-		matriz[i] = (int *)malloc(col * sizeof(int));
-		if (matriz[i] == NULL)
-		{
-			ft_free(matriz, row);
-			return (NULL);
-		}
-		i++;
-	}
-	return (matriz);
-}
-
 int	main(int argc, char *argv[])
 {
-	int		fd;
-	char	*line;
-	int		row;
-	int		col;
+	int	**matrix;
+	int	row;
+	int	col;
 
 	row = 0;
 	if (argc != 2)
 		return (ft_printf("Argumentos incorretos"), 1);
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		return (ft_printf("Error opening file."), 1);
-	line = get_next_line(fd);
+	**matrix = read_file(argv, matrix, &row, *col);
 	while (line != NULL)
 	{
-		if (row == 0)
-			col = count_col(line);
+		col = count_col(line);
 		row++;
 		free(line);
 		line = get_next_line(fd);
 	}
 	close (fd);
+	matriz = ft_create_matriz(argv[1], row, col, matriz);
+	ft_printf(("%d, %d"), col, row);
+	ft_printf("%d", **matriz);
 	return (0);
 }

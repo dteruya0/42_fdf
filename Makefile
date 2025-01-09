@@ -6,7 +6,7 @@
 #    By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 08:48:03 by dteruya           #+#    #+#              #
-#    Updated: 2025/01/09 11:30:14 by dteruya          ###   ########.fr        #
+#    Updated: 2025/01/09 13:34:30 by dteruya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,12 @@ CFLAGS = -Wall -Wextra -Werror -I./libft -I./gnl
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o aa $(OBJ) $(LIBFT) $(LIBS) $(MLX)
+	$(CC) $(CFLAGS) -o fdf $(OBJ) $(LIBFT) $(LIBS) $(MLX)
 
 clean:
 	rm -f $(OBJ)
 
 fclean: clean
-	rm -f aa
+	rm -f fdf
 
 re: fclean all
