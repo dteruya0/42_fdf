@@ -6,7 +6,7 @@
 #    By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 08:48:03 by dteruya           #+#    #+#              #
-#    Updated: 2025/01/09 13:34:30 by dteruya          ###   ########.fr        #
+#    Updated: 2025/01/20 14:44:46 by dteruya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBS = -lXext -lX11 -lm
 
 LIBFT = ./libft/libft.a
 
-SRC = fdf.c\
+SRC = fdf.c fdf_utils.c\
 
 OBJ = $(SRC:.c=.o)
 

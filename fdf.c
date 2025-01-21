@@ -6,101 +6,87 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:31:39 by dteruya           #+#    #+#             */
-/*   Updated: 2025/01/09 19:41:58 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/01/21 19:03:42 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-/*
-void	draw_line(void *mlx, void *win)
-{
-	t_point	point1;
-	t_point	point2;
-	float	dx;
-	float	dy;
-	float	step;
-	int		i;
-	void	*mlx;
-	void	*win;
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 8000, 6000, "Minilibx Test");
-	point1.x = 100;
-	point1.y = 100;
-	point2.x = 100;
-	point2.y = 200;
-	dx = point2.x - point1.x;
-	dy = point2.y - point1.y;
-	if (fabs(dx) > fabs(dy))
-		step = fabs(dx);
-	else
-		step = fabs(dy);
-	dx /= step;
-	dy /= step;
-	i = 0;
-	while (i <= step)
+void	ft_fill_matriz(int **matriz, const char *line, int row)
+{
+	int		col;
+	char	**numbers;
+
+	numbers = ft_split(line, ' ');
+	col  = 0;
+	while (numbers[col])
 	{
-		mlx_pixel_put(mlx, win, point1.x, point1.y, 0x00FF00);
-		point1.x += dx;
-		point1.y += dy;
-		i++;
+		ft_printf("Filling row %d, col %d with value %d\n", row, col, ft_atoi(numbers[col]));
+		matriz[row][col] = ft_atoi(numbers[col]);
+		free(numbers[col]);
+		col++;
 	}
-	mlx_loop(mlx);
-}*/
-/*
-void	ft_draw_line(void *mlx, void *win)
-{
-	
+	free (numbers);
 }
 
-void	positions()
+int	ft_fill_matriz_help(int **matrix, const char *file)
 {
-	
-}
-*/
-/*
-int	main(int argc, char *argv[])
-{
-	void	*mlx;
-	void	*win;
+	int		fd;
+	char	*line;
+	int		row;
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 800, 600, "MiniLibX Test");
-	mlx_pixel_put(mlx, win, 400, 300, 0xFF0000);
-	mlx_loop(mlx);
+	row = 0;
+	fd = open(file, O_RDONLY);
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		ft_fill_matriz(matrix, line, row);
+		free (line);
+		line = get_next_line(fd);
+		row++;
+	}
+	close (fd);
 	return (0);
-}*/
-/*
-int y = 0; // Linha na matriz
-while (linha = próxima_linha_do_arquivo()) {
-    int x = 0; // Coluna na matriz
-    while (valor = próximo_valor_da_linha(linha)) {
-        printf("Ponto: x = %d, y = %d, z = %d\n", x, y, valor);
-        x++; // Avança para a próxima coluna
-    }
-    y++; // Avança para a próxima linha
 }
-*/
 
-int	**ft_alocate_matriz(int **matriz, char *line, int row, int i, int j)
+int	count_rows(const char *file)
 {
-	while (i < row)
+	int		fd;
+	int		row;
+	char	*line;
+
+	row = 0;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (ft_printf("%s", "Error opening file") ,-1);
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		row++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close (fd);
+	return (row);
+}
+
+int	count_col(char *line)
+{
+	int	col;
+
+	col = 0;
+	while (*line)
 	{
 		if (ft_isdigit(*line))
 		{
+			col++;
 			while (ft_isdigit(*line))
-			{
-				matriz[i][j] = ft_atoi(line);
 				line++;
-			}
-			j++;
 		}
-		else if (!(ft_isdigit(*line)))
-			line++;
 		else
-			i++;
+			line++;
 	}
-	return (matriz);
+	return (col);
 }
 
 void	ft_free(int **matriz, int row)
@@ -117,90 +103,74 @@ void	ft_free(int **matriz, int row)
 	return;
 }
 
-int	**read_file(char *file, int **matriz, int *row, int *col)
+t_dimensions	get_dimensions(char *file)
 {
-	int		fd;
-	char	*line;
-	int		i;
-	int 	j;
+	int				fd;
+	char			*line;
+	t_dimensions	dim = {0, 0};
 
-	i = 0;
-	j = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (ft_printf("Erro opening file", 1));
-	line = get_next_line(fd);
-		while (line != NULL)
 	{
-		matriz = ft_alocate_matriz(matriz, line, row, i, j);
+		ft_printf("Erro opening file");
+		return (dim);
+	}
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		if (dim.rows == 0)
+			dim.cols = count_col(line);
+		dim.rows++;
 		free(line);
 		line = get_next_line(fd);
 	}
 	close (fd);
-	return (matriz);
+	return (dim);
 }
 
-int	**ft_create_matriz(const char *file, int row, int col, int **matriz)
+int	**ft_allocate_matriz(const char *file, int row, int col)
 {
+	int	**matrix;
 	int	index;
-	
+
 	index = 0;
-	matriz = (int **)malloc(row * sizeof(int *));
-	if (matriz == NULL)
+	matrix = (int **)malloc(row * sizeof(int *));
+	if (matrix == NULL)
 		return (NULL);
 	while (index < row)
 	{
-		matriz[index] = (int *)malloc(col * sizeof(int));
-		if (matriz[index] == NULL)
+		matrix[index] = (int *)malloc(col * sizeof(int));
+		if (matrix[index] == NULL)
 		{
-			ft_free(matriz, row);
+			ft_free(matrix, row);
 			return (NULL);
 		}
 		index++;
 	}
-	matriz = read_file(file, matriz, row);
-	return (matriz);
-}
-
-int	count_col(char *line)
-{
-	int	x;
-
-	x = 0;
-	while (*line)
+	if (ft_fill_matriz_help(matrix, file) < 0)
 	{
-		if (ft_isdigit(*line))
-		{
-			x++;
-			while (ft_isdigit(*line))
-				line++;
-		}
-		else
-			line++;
+		ft_free(matrix, row);
+		return (NULL);
 	}
-	return (x);
+	return (matrix);
 }
 
 int	main(int argc, char *argv[])
 {
-	int	**matrix;
-	int	row;
-	int	col;
+	int				**matrix;
+	t_dimensions	dim;
 
-	row = 0;
+	matrix = 0;
 	if (argc != 2)
-		return (ft_printf("Argumentos incorretos"), 1);
-	**matrix = read_file(argv, matrix, &row, *col);
-	while (line != NULL)
+		return (ft_printf("Incorrect arguments\n"), -1);
+	dim = get_dimensions(argv[1]);
+	if (dim.rows == 0 || dim.cols == 0)
 	{
-		col = count_col(line);
-		row++;
-		free(line);
-		line = get_next_line(fd);
+		ft_printf("Error: invalid file or empty file\n");
+		return (1);
 	}
-	close (fd);
-	matriz = ft_create_matriz(argv[1], row, col, matriz);
-	ft_printf(("%d, %d"), col, row);
-	ft_printf("%d", **matriz);
+	matrix = ft_allocate_matriz(argv[1], dim.rows, dim.cols);
+	ft_printf("%d, %d", dim.cols, dim.rows);
+	ft_free (matrix, dim.rows);
 	return (0);
 }

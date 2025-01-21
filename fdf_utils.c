@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 09:49:24 by dteruya           #+#    #+#             */
-/*   Updated: 2025/01/21 19:03:58 by dteruya          ###   ########.fr       */
+/*   Created: 2025/01/20 14:44:05 by dteruya           #+#    #+#             */
+/*   Updated: 2025/01/21 19:04:11 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "fdf.h"
 
-#include <mlx.h>
-#include <math.h>
-#include <fcntl.h>
-#include "libft/libft.h"
-
-# define ANG_30		0.52359877
-
-typedef struct s_dimensions
+/*float	ft_formula_x(int x, int y, float angle_degrees)
 {
-	int	rows;
-	int	cols;
-//	int	height;
-}	t_dimensions;
-
-typedef struct s_camera
-{
-	float x;
-	float y;
-	float z;
-}	t_camera;
-
-#endif
+	float	angle_radians;
+	float	x_prime;
+	
+	x_prime = ()
+	return (x_prime);
+}*/
