@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:31:39 by dteruya           #+#    #+#             */
-/*   Updated: 2025/01/21 19:03:42 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/01/22 15:09:32 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_fill_matriz(int **matriz, const char *line, int row)
 	col  = 0;
 	while (numbers[col])
 	{
-		ft_printf("Filling row %d, col %d with value %d\n", row, col, ft_atoi(numbers[col]));
+		/*ft_printf("Filling row %d, col %d with value %d\n", row, col, ft_atoi(numbers[col]));*/
 		matriz[row][col] = ft_atoi(numbers[col]);
 		free(numbers[col]);
 		col++;
@@ -158,6 +158,7 @@ int	**ft_allocate_matriz(const char *file, int row, int col)
 int	main(int argc, char *argv[])
 {
 	int				**matrix;
+	t_point			**matrix_prime;
 	t_dimensions	dim;
 
 	matrix = 0;
@@ -170,7 +171,8 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	matrix = ft_allocate_matriz(argv[1], dim.rows, dim.cols);
-	ft_printf("%d, %d", dim.cols, dim.rows);
+	matrix_prime = ft_allocate_projected_matrix(dim.cols, dim.rows, matrix);
+	ft_free_projected_matrix(matrix_prime, dim.rows);
 	ft_free (matrix, dim.rows);
 	return (0);
 }
