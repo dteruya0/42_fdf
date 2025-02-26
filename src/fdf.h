@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:22:14 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/26 12:22:13 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/26 17:28:09 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_fdf
 	void	*win_ptr;
 }	t_fdf;
 
-void	free_matrix(int **split);
 void	bresenham(float x, float y, t_fdf *fdf);
 void	draw(t_fdf *fdf);
 int		validate_file(const char *file_name);

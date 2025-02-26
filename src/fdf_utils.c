@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:44:08 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/26 12:34:49 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/26 17:45:01 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,9 @@ void	isometric(float *x, float *y, int z)
 	*y = (*x + *y) * sin(0.8) - z;
 }
 
-void	cleanup(t_fdf *fdf)
+void cleanup(t_fdf *fdf)
 {
 	if (fdf->z_matrix)
 		free_matrix(fdf->z_matrix);
-	if (fdf)
-		free(fdf);
+	free(fdf);
 }
