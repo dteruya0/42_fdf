@@ -6,16 +6,16 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:19:11 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/26 13:19:54 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:58:10 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_BONUS_H
 # define FDF_BONUS_H
 
-# include <mlx.h>
 # include <math.h>
 # include "../lib/libft/libft.h"
+# include "../lib/minilibx/mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <limits.h>
@@ -45,7 +45,8 @@ typedef struct s_fdf
 	void	*win_ptr;
 }	t_fdf;
 
-void	free_matrix(int **split);
+int		is_valid(const char *file_name, int *flag);
+void	free_matrix(int **matrix, int height);
 void	bresenham(float x, float y, t_fdf *fdf);
 void	draw(t_fdf *fdf);
 int		validate_file(const char *file_name);

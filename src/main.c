@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:21:51 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/26 18:09:02 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:22:42 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ static int	deal_key(int key, t_fdf *fdf)
 {
 	if (key == 0 || key == 65307 || key == 2)
 	{
-		mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
-		free(fdf->mlx_ptr);
+		if (fdf->win_ptr)
+			mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
+		if (fdf->mlx_ptr)
+			mlx_destroy_display(fdf->mlx_ptr);
+		free_matrix(fdf->z_matrix, fdf->height);
+		cleanup(fdf);
 		exit(0);
 	}
 	return (0);
@@ -39,9 +43,6 @@ int	init_program(t_fdf *fdf)
 	mlx_key_hook(fdf->win_ptr, deal_key, fdf);
 	draw(fdf);
 	mlx_loop(fdf->mlx_ptr);
-	mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
-	free(fdf->mlx_ptr);
-	cleanup(fdf);
 	return (0);
 }
 

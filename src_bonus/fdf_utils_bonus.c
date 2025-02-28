@@ -6,11 +6,11 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:20:34 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/26 13:20:34 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:35:28 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fdf_bonus.h"
 
 void	free_split(char **split)
 {
@@ -27,14 +27,14 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	free_matrix(int **matrix)
+void	free_matrix(int **matrix, int height)
 {
 	int	i;
 
 	if (matrix == NULL)
 		return ;
 	i = 0;
-	while (matrix[i])
+	while (matrix[i] && i < height)
 	{
 		free(matrix[i]);
 		i++;
@@ -56,8 +56,8 @@ void	isometric(float *x, float *y, int z)
 
 void	cleanup(t_fdf *fdf)
 {
-	if (fdf->z_matrix)
-		free_matrix(fdf->z_matrix);
+	if (fdf->mlx_ptr)
+		free(fdf->mlx_ptr);
 	if (fdf)
 		free(fdf);
 }

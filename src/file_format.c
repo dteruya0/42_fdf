@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:24:49 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/26 16:43:57 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:50:00 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int	validate_file(const char *file_name)
 		exit(EXIT_FAILURE);
 	verify_first_line(fd, &count, &flag);
 	verify_remaining_lines(fd, count, &flag);
+	is_valid(file_name, &flag);
 	if (flag == 1)
 	{
 		close(fd);

@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 12:58:54 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/26 14:10:14 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:35:57 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,12 @@ static int	deal_key(int key, t_fdf *fdf)
 		fdf->zoom -= 1;
 	if (key == 0 || key == 65307 || key == 2)
 	{
-		mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
-		free(fdf->mlx_ptr);
+		if (fdf->win_ptr)
+			mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
+		if (fdf->mlx_ptr)
+			mlx_destroy_display(fdf->mlx_ptr);
+		free_matrix(fdf->z_matrix, fdf->height);
+		cleanup(fdf);
 		exit(0);
 	}
 	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);

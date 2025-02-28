@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:44:08 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/26 17:45:01 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:30:30 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	free_matrix(int **matrix)
+void	free_matrix(int **matrix, int height)
 {
 	int	i;
 
 	if (matrix == NULL)
 		return ;
 	i = 0;
-	while (matrix[i])
+	while (matrix[i] && i < height)
 	{
 		free(matrix[i]);
 		i++;
@@ -42,21 +42,10 @@ void	free_matrix(int **matrix)
 	free(matrix);
 }
 
-void	isometric2(t_fdf *fdf)
+void	cleanup(t_fdf *fdf)
 {
-	fdf->x1 = (fdf->x1 - fdf->y1) * cos(0.8);
-	fdf->y1 = (fdf->x1 + fdf->y1) * sin(0.8) - fdf->z1;
-}
-
-void	isometric(float *x, float *y, int z)
-{
-	*x = (*x - *y) * cos(0.8);
-	*y = (*x + *y) * sin(0.8) - z;
-}
-
-void cleanup(t_fdf *fdf)
-{
-	if (fdf->z_matrix)
-		free_matrix(fdf->z_matrix);
-	free(fdf);
+	if (fdf->mlx_ptr)
+		free(fdf->mlx_ptr);
+	if (fdf)
+		free(fdf);
 }
