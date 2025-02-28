@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 12:57:18 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/28 11:57:54 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:30:45 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	is_valid(const char *file_name, int *flag)
 	file_name += len - 4;
 	if (ft_strncmp(file_name, ".fdf", 4) != 0)
 	{
-		*flag =1;
+		*flag = 1;
 		ft_printf("Error: The file extension is incorrect, please use .fdf\n");
 	}
 	return (0);
