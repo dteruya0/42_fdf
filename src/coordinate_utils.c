@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 12:57:18 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/28 12:30:45 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 15:16:29 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,17 @@ int	is_valid(const char *file_name, int *flag)
 		*flag = 1;
 		ft_printf("Error: The file extension is incorrect, please use .fdf\n");
 	}
+	return (0);
+}
+
+int	close_window(t_fdf *fdf)
+{
+	if (fdf->win_ptr)
+		mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
+	if (fdf->mlx_ptr)
+		mlx_destroy_display(fdf->mlx_ptr);
+	free_matrix(fdf->z_matrix, fdf->height);
+	cleanup(fdf);
+	exit(0);
 	return (0);
 }

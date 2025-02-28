@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:21:51 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/28 13:56:14 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 15:14:27 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	init_program(t_fdf *fdf)
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr,
 			WINDOW_HEIGHT, WINDOW_WIDTH, "FDF");
 	mlx_key_hook(fdf->win_ptr, deal_key, fdf);
+	mlx_hook(fdf->win_ptr, 17, 0, close_window, fdf);
 	draw(fdf);
 	mlx_loop(fdf->mlx_ptr);
 	return (0);

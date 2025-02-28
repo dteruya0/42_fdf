@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:22:14 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/28 13:03:26 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 15:16:58 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_fdf
 	void	*win_ptr;
 }	t_fdf;
 
+int		close_window(t_fdf *fdf);
 int		is_valid(const char *file_name, int *flag);
 void	free_matrix(int **matrix, int height);
 void	draw(t_fdf *fdf);
