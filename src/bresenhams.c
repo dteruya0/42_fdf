@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   brasenhams.c                                       :+:      :+:    :+:   */
+/*   bresenhams.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 11:21:17 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/26 13:21:38 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 13:02:44 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	apply_transformations(float *x, float *y, t_fdf *fdf)
+static void	apply_transformations(float *x, float *y, t_fdf *fdf)
 {
 	int	z;
 
@@ -34,7 +34,7 @@ void	apply_transformations(float *x, float *y, t_fdf *fdf)
 	fdf->y1 += fdf->shift_y;
 }
 
-void	calculate_steps(float x, float y, t_fdf *fdf)
+static void	calculate_steps(float x, float y, t_fdf *fdf)
 {
 	float	max;
 
@@ -48,7 +48,7 @@ void	calculate_steps(float x, float y, t_fdf *fdf)
 	fdf->y_step /= max;
 }
 
-void	draw_line(float x, float y, t_fdf *fdf)
+static void	draw_line(float x, float y, t_fdf *fdf)
 {
 	while ((int)(x - fdf->x1) || (int)(y - fdf->y1))
 	{
@@ -58,7 +58,7 @@ void	draw_line(float x, float y, t_fdf *fdf)
 	}
 }
 
-void	bresenham(float x, float y, t_fdf *fdf)
+static void	bresenham(float x, float y, t_fdf *fdf)
 {
 	apply_transformations(&x, &y, fdf);
 	calculate_steps(x, y, fdf);

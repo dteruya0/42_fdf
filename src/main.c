@@ -6,12 +6,11 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:21:51 by dteruya           #+#    #+#             */
-/*   Updated: 2025/02/28 11:22:42 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/02/28 13:05:34 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 static void	exit_error(const char *msg, int status, t_fdf *fdf)
 {
